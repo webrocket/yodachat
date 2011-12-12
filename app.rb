@@ -4,6 +4,7 @@ require 'redis'
 require 'digest/sha1'
 
 $redis = Redis.new
+#$webrocket = WebRocket::Client.new("wr://yoda:secret@127.0.0.1:9773/yoda") 
 
 set :root, File.dirname(__FILE__)
 set :views, File.join(settings.root, "views")

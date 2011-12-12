@@ -27,14 +27,14 @@ describe WebRocket::Client do
 
     context "when invalid credentials" do
       it "raises unauthorized error" do
-        conn = subject.new("wr://wronguser:wrongpass@127.0.0.1:9776/vhost")
+        conn = subject.new("wr://wronguser:wrongpass@127.0.0.1:9773/vhost")
         expect { conn.connect }.to raise_error(WebRocket::ClientError, "Error 401: Unauthorized")
       end
     end
 
     context "when everything's ok" do
       it "connects to the server and returns alive connection" do
-        conn = subject.new("wr://user:pass@127.0.0.1:9776/vhost")
+        conn = subject.new("wr://user:pass@127.0.0.1:9773/vhost")
         conn.connect
         conn.should be_active
         conn.disconnect
@@ -49,7 +49,7 @@ describe WebRocket::Client do
   end
 
   let(:conn) do
-    subject.new("wr://user:pass@127.0.0.1:9776/vhost")
+    subject.new("wr://user:pass@127.0.0.1:9773/vhost")
   end
 
   describe "#active?" do
