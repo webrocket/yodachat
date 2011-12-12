@@ -1,0 +1,12 @@
+.DS_Store
+.bashrc
+.bundle
+db/*.sqlite3
+log/*
+tmp/
+*.rbc
+\#*
+.\#*
+*.log
+*.pid
+*.dump
