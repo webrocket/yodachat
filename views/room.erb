@@ -1,10 +1,11 @@
 <script>
-  var screenName = localStorage.hasOwnProperty("screenName") ?
-    localStorage.screenName : "";
+  //var screenName = localStorage.hasOwnProperty("screenName") ?
+  //  localStorage.screenName : "";
+  var screenName = "";
   
   while (screenName == "") {
     screenName = prompt("What's your name?");
-    localStorage.screenName = screenName;
+    //localStorage.screenName = screenName;
   }
   
   wsSend = function(ws, payload) {
@@ -23,13 +24,13 @@
       wsSend(ws, {"subscribe":{"channel": "<%= params[:id] %>"}})
     } else if (data.hasOwnProperty("__subscribed")) {
       $("#chatlog").append("<li class='joined'>You joined the channel</li>")
-    } else if (data.hasOwnProperty("event")) {
-      if (data["event"] == "message_sent") {
-        d = data["data"];
-        text = d["message"];
-        author = d["author"];
-        $("#chatlog").append("<li><span class='author'>[" + author + "]</span> " + text + "</li>")
-      }
+    } else if (data.hasOwnProperty("message_sent")) {
+      d = data["message_sent"];
+      text = d["message"];
+      author = d["author"];
+      $("#chatlog").append("<li><span class='author'>[" + author + "]</span> " + text + "</li>")
+    } else {
+      console.log(evt.data)
     }
   }
 </script>
@@ -47,10 +48,10 @@
   $("#new_message_text").keypress(function(e) {
     if (e.which == 13) {
       wsSend(ws, {
-        "broadcast": {
-          "event": "message_sent",
-          "channel": "<%= params[:id] %>",
+        "trigger": {
+          "event": "yodaize_and_send_to_all",
           "data": {
+            "channel": "<%= params[:id] %>",
             "author": screenName,
             "message": $(this).val()
           }

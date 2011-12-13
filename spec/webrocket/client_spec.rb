@@ -82,10 +82,10 @@ describe WebRocket::Client do
     end
   end
 
-  describe "#trigger!" do
-    it "sends trigger message to the server" do
+  describe "#broadcast!" do
+    it "sends broadcast message to the server" do
       conn.connect
-      conn.trigger!("hello", {"who" => "world"})
+      conn.broadcast!("foo", "hello", {"who" => "world"})
       pending
     end
   end

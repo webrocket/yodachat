@@ -4,13 +4,32 @@ require 'redis'
 require 'digest/sha1'
 
 $redis = Redis.new
-#$webrocket = WebRocket::Client.new("wr://yoda:secret@127.0.0.1:9773/yoda") 
 
 set :root, File.dirname(__FILE__)
 set :views, File.join(settings.root, "views")
 set :public_folder, File.join(settings.root, "public")
 
 $LOAD_PATH.unshift(File.join(settings.root, "lib"))
+
+require 'webrocket/client'
+
+$webrocket = WebRocket::Client.new("wr://yoda:pass@127.0.0.1:9773/yoda") 
+
+$webrocket.on_event { |c, event, data|
+  if event == "yodaize_and_send_to_all"
+    chan = data.delete("channel")
+    data["message"] = data["message"].to_yoda
+    c.broadcast!(chan, "message_sent", data)
+  else
+    puts "#{event}: #{data.inspect}"
+  end
+}
+
+$webrocket.on_error { |c, err, data|
+  puts "ERR: #{err.to_s}"
+}
+
+$webrocket.connect
 
 require 'yodachat'
 include YodaChat

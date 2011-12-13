@@ -31,6 +31,8 @@ module WebRocket
     end
     
     def connect
+      disconnect
+
       addr = "tcp://#{@uri.host}:#{@uri.port}"
       @zctx = ZMQ::Context.new(1)
       @sock = @zctx.socket(ZMQ::DEALER)
@@ -54,7 +56,7 @@ module WebRocket
         @event_loop = nil
       end
 
-      @sock.close
+      @sock.close if @sock
     end
 
     def active?
@@ -69,19 +71,14 @@ module WebRocket
       @on_event = block
     end
 
-    def trigger!(event, data={}, directly_to=nil)
-      payload = {
-        :trigger => {
+    def broadcast!(channel, event, data={})
+      send!({
+        :broadcast => {
           :event => event,
           :data => data,
+          :channel => channel
         } 
-      }
-
-      if directly_to
-        payload[:trigger][:directlyTo] = directly_to
-      end
-
-      send!(payload)
+      })
     end
 
     private
@@ -124,11 +121,10 @@ module WebRocket
         begin
           payload = unmarshal(msg)
           event = payload.keys.first
-          data = payload[data]
-
-          @on_event.call(event, data) if @on_event
+          data = payload[event]
+          @on_event.call(self, event, data) if @on_event
         rescue => err
-          @on_error.call(err, nil) if @on_error
+          @on_error.call(self, err, nil) if @on_error
         end
       end
     end
