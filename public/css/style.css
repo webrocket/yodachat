@@ -160,7 +160,7 @@ h1 img {
   box-shadow: 0 0 10px rgba(120, 120, 120, .2);
 }
 #chatlog li {
-  padding: .4em 0;
+  padding: .4em 0 .8em 0;
   /*background-color: grey;*/
   border-style: solid none;
   border-width: 1px;
@@ -206,8 +206,14 @@ time {
   /*background-color: rgba(0, 0, 255, .5);*/
 }
 #new_message {
+  width: 96%;
+  padding: 2%;
+  background-color: #f8f8f8;
+  box-shadow: 0 5px 10px rgba(120, 120, 120, .2);
 }
 #new_message_text {
+  margin: 0 0 0 12%;
+  width: 74%;
 }
 
 [role="contentinfo"] {
