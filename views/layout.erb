@@ -12,8 +12,8 @@
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 </head>
 <body>
-  <div id="container">
-    <header>
+  <div id="container" class="clearfix">
+    <header role="banner">
       <h1>
         <img src="/img/yoda-logo.png" alt="Yoda Chat" />
         Yoda chat demo
@@ -22,10 +22,10 @@
     <div id="main" role="main">
       <%= yield %>
     </div>
-    <footer>
-      Copyright &copy; 2011 by <a href="http://www.cuboxsa.com/">Cubox</a>
-    </footer>
   </div>
+  <footer role="contentinfo">
+    Copyright &copy; 2011 by <a href="http://www.cuboxsa.com/">Cubox</a>
+  </footer>
 
   <script defer="defer" src="js/plugins.js"></script>
   <script defer="defer" src="js/script.js"></script>
