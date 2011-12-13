@@ -130,7 +130,7 @@ h2 {
 [role="banner"] {
   width: 20em;
   padding: 2em 1em;
-  float: eft;
+  float: right;
 }
 [role="banner"] h1 {
   width: 100%;
@@ -143,7 +143,7 @@ h1 img {
 }
 [role="main"] {
   padding: 1em;
-  margin: 0 0 0 22em;
+  margin-right: 22em;
 }
 #new_chat {
 }
