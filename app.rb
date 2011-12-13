@@ -13,7 +13,7 @@ $LOAD_PATH.unshift(File.join(settings.root, "lib"))
 
 require 'webrocket/client'
 
-$webrocket = WebRocket::Client.new("wr://yoda:pass@127.0.0.1:9773/yoda") 
+$webrocket = WebRocket::Client.new("wr://yoda:pass@10.1.0.55:9773/yoda") 
 
 $webrocket.on_event { |c, event, data|
   if event == "yodaize_and_send_to_all"
