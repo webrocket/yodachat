@@ -130,7 +130,9 @@ h2 {
 [role="banner"] {
   width: 20em;
   padding: 2em 1em;
-  float: right;
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 [role="banner"] h1 {
   width: 100%;
@@ -150,8 +152,58 @@ h1 img {
 #new_chat_button {
 }
 #chatlog {
+  width: 96%;
+  padding: 2%;
+  margin: 0;
+  background-color: #f8f8f8;
+  list-style-type: none;
+  box-shadow: 0 0 10px rgba(120, 120, 120, .2);
 }
 #chatlog li {
+  padding: .4em 0;
+  /*background-color: grey;*/
+  border-style: solid none;
+  border-width: 1px;
+  border-color: #fff transparent #eee transparent;
+}
+#chatlog li:before,
+#chatlog li:after {
+  content: "";
+  display: table;
+}
+#chatlog li:after {
+  clear: both;
+}
+#chatlog li:hover {
+  background-color: #e0e0e0;
+}
+#chatlog .sys_msg {
+  background-color: #f0f0f0;
+  padding: .5% 1%;
+  margin: .5% 0;
+  box-shadow: 0 0 10px rgba(120, 120, 120, .3) inset;
+  color: #666;
+  border-style: none;
+}
+.fn {
+  width: 10%;
+  margin: 0 2% 0 0;
+  float: left;
+  text-align: right;
+  color: #666;
+  /*background-color: rgba(255, 0, 0, .5);*/
+}
+.msg {
+  width: 77%;
+  float: left;
+  display: block;
+  /*background-color: rgba(0, 255, 0, .5);*/
+}
+time {
+  width: 10%;
+  float: right;
+  color: #666;
+  /*background-color: rgba(0, 0, 255, .5);*/
 }
 #new_message {
 }
@@ -166,10 +218,6 @@ h1 img {
   right: 0;
   bottom: 0;
   background-color: #D5D1B9;
-}
-
-li.joined {
-  color: gray;
 }
 
 /* ==|== non-semantic helper classes ======================================== */

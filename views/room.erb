@@ -27,14 +27,14 @@
       d = data["message_sent"];
       text = d["message"];
       author = d["author"];
-      $("#chatlog").append("<li><span class='author'>[" + author + "]</span> " + text + "</li>")
+      $("#chatlog").append("<li><span class='fn'>" + author + ":</span><span class='msg'> " + text + "</span><time datetime='2009-11-13T21:18+03:42'>21:18</time></li>") 
     } else if (data.hasOwnProperty("joined")) {
       d = data["joined"]
       who = d["name"]
       if (who == screenName) {
         who = "You"
       }
-      $("#chatlog").append("<li class='joined'>" + who + " joined the room</li>")
+      $("#chatlog").append("<li class='sys_msg'>" + who + " joined the room</li>")
     } else {
       console.log(evt.data)
     }
