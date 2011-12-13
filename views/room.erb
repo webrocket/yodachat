@@ -1,11 +1,10 @@
 <script>
-  //var screenName = localStorage.hasOwnProperty("screenName") ?
-  //  localStorage.screenName : "";
-  var screenName = "";
+  var screenName = localStorage.hasOwnProperty("screenName") ?
+    localStorage.screenName : "";
   
   while (screenName == "") {
     screenName = prompt("What's your name?");
-    //localStorage.screenName = screenName;
+    localStorage.screenName = screenName;
   }
   
   wsSend = function(ws, payload) {
