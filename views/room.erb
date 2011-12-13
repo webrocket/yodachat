@@ -12,7 +12,7 @@
     return ws.send(JSON.stringify(payload))
   }
 
-  var ws = new WebSocket("ws://127.0.0.1:9772/yoda")
+  var ws = new WebSocket("ws://10.1.0.55:9772/yoda")
 
   ws.onopen = function() {
     wsSend(ws, {"auth": {"user": "yoda", "secret": "pass"}})
@@ -23,12 +23,19 @@
     if (data.hasOwnProperty("__authenticated")) {
       wsSend(ws, {"subscribe":{"channel": "<%= params[:id] %>"}})
     } else if (data.hasOwnProperty("__subscribed")) {
-      $("#chatlog").append("<li class='joined'>You joined the channel</li>")
+      wsSend(ws, {"broadcast": {"event": "joined", "channel": "<%= params[:id] %>", "data": {"name": screenName}}})
     } else if (data.hasOwnProperty("message_sent")) {
       d = data["message_sent"];
       text = d["message"];
       author = d["author"];
       $("#chatlog").append("<li><span class='author'>[" + author + "]</span> " + text + "</li>")
+    } else if (data.hasOwnProperty("joined")) {
+      d = data["joined"]
+      who = d["name"]
+      if (who == screenName) {
+        who = "You"
+      }
+      $("#chatlog").append("<li class='joined'>" + who + " joined the room</li>")
     } else {
       console.log(evt.data)
     }
