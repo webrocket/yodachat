@@ -90,8 +90,10 @@ h6 {
   font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }
 h1 {
+  font-size: 2em;
 }
 h2 {
+  font-size: 1.5em;
 }
 .btn {
   cursor: pointer;
@@ -276,6 +278,7 @@ time {
 #message_send {
   width: 10%;
   height: 3.3em;
+  padding: 0;
   float: right;
 }
 
@@ -307,14 +310,56 @@ time {
 
 /* ==|== media queries ====================================================== */
 
-@media only screen and (min-width: 480px) {
-
-
+@media (max-width: 960px) {
+  [role="banner"] {
+    width: 10em;
+    top: 1.5em;
+  }
+  [role="main"] {
+    margin-right: 12em;
+  }
+}
+@media (max-width: 768px) {
+  [role="banner"] {
+    width: 6em;
+    padding: .5em;
+    position: absolute;
+    top: 0;
+  }
+  [role="main"] {
+    margin-right: 0;
+  }
+  #room h2 {
+    margin-right: 4em;
+    height: 3em;
+    overflow: hidden;
+  }
+}
+@media (max-width: 480px) {
+  #chatlog {
+    font-size: .8em;
+  }
+  .fn {
+    width: 15%;
+    background-color: yellow;
+  }
+  .msg {
+    width: 67%;
+    background-color: green;
+  }
+  time {
+    width: 15%;
+    background-color: grey;
+  }
+  #new_message_text {
+    width: 82%;
+    margin: 0;
+  }
+  #message_send {
+    width: 14%;
+  }
 }
 
-@media only screen and (min-width: 768px) {
-
-}
 
 
 
