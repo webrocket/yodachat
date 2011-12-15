@@ -3,6 +3,8 @@ source "http://rubygems.org"
 
 gem 'sinatra'
 gem 'redis'
+gem 'rack-flash'
+gem 'activesupport'
 
 # webrocket deps
 gem 'ffi-rzmq'

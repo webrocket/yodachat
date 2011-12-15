@@ -6,10 +6,10 @@
   <meta name="description" content="Yoda Chat &#183; WebRocket Experiment">
   <meta name="author" content="nu7hatch &#38; DrummerHead">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/style.css?7">
-  <script src="js/libs/modernizr-2.0.6.min.js"></script>
+  <link rel="stylesheet" href="/css/style.css?7">
+  <script src="/js/libs/modernizr-2.0.6.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+  <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 </head>
 <body>
   <div id="container" class="clearfix">
@@ -18,14 +18,19 @@
         <img src="/img/yoda-logo.png" alt="Yoda chat demo" />
       </h1>
     </header>
+    
+    <% if flash[:error] %>
+      <div id="flash_error" class="flash_message"><%=h flash[:error] %></div>
+    <% end %>
+    
     <%= yield %>
   </div>
   <footer role="contentinfo">
     Copyright &#169; 2011 by <a href="http://www.cuboxsa.com/">Cubox</a>
   </footer>
 
-  <script defer="defer" src="js/plugins.js"></script>
-  <script defer="defer" src="js/script.js"></script>
+  <script defer="defer" src="/js/plugins.js"></script>
+  <script defer="defer" src="/js/script.js"></script>
   <script>
     window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
     Modernizr.load({load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'});
