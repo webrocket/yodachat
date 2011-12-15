@@ -1,6 +1,4 @@
-/* HTML5 ✰ Boilerplate
- * ==|== normalize ==========================================================
- */
+/* HTML5 ✰ Boilerplate with DrummerHead code */
 
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
 audio, canvas, video { display: inline-block; }
@@ -198,6 +196,16 @@ h1 img {
   margin-right: 22em;
 }
 #landing {
+}
+#new_chat_name {
+  width: 21em;
+  padding: .5em;
+  line-height: 1.2em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  margin: 0 0 1em 0;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 #room {
 }
