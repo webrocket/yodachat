@@ -8,7 +8,7 @@ class String
     self.split(/([#{imarks}])/).each { |s|
       if s =~ /^[#{imarks}]$/
         if result.last.nil? 
-          result <<  s
+          result << s
         else
           result[result.size-1] = result.last + s
         end

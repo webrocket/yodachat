@@ -18,6 +18,15 @@ module WebRocket
     end
   end
 
+  class InvalidMessageError < StandardError
+    attr_accessor :message
+    
+    def initialize(data)
+      @message = data
+      super "Invalid message format"
+    end
+  end
+
   class Client
     attr_reader :uri
 
@@ -41,9 +50,6 @@ module WebRocket
         raise ConnectionError.new("Can't connect to #{@uri.to_s}")
       end
 
-      # Authenticate to the vhost.
-      join_vhost!(@uri.path, @uri.user, @uri.password)
-
       # Start listener's event loop in background thread.
       @event_loop = Thread.new { event_loop }
     end
@@ -63,6 +69,10 @@ module WebRocket
       !!@event_loop and @event_loop.alive? && !@exiting
     end
 
+    def on_exception(&block)
+      @on_exception = block
+    end
+
     def on_error(&block)
       @on_error = block
     end
@@ -72,6 +82,7 @@ module WebRocket
     end
 
     def broadcast!(channel, event, data={})
+      assert_authenticated!
       send!({
         :broadcast => {
           :event => event,
@@ -79,6 +90,10 @@ module WebRocket
           :channel => channel
         } 
       })
+    end
+
+    def assert_authenticated!
+      raise "Not authenticated" unless @authenticated
     end
 
     private
@@ -89,7 +104,9 @@ module WebRocket
       end
     end
 
-    def join_vhost!(vhost, user, secret)
+    def authenticate!(vhost, user, secret)
+      @authenticated = false
+      
       send!({ 
         :auth => {
           :vhost => vhost,
@@ -97,36 +114,40 @@ module WebRocket
           :secret => secret,
         }
       })
-
-      @sock.recv_string(msg = '')
-      payload = unmarshal(msg)
-      
-      if payload["ok"] == true
-        return true
-      elsif payload.key?("__error")
-        raise ClientError.new(payload["__error"])
-      else
-        raise UnknownError.new("Unknown error while joining the vhost")
-      end
-    rescue => err
-      disconnect
-      raise err
     end
 
     def event_loop
       loop do
         break if @exiting
-        @sock.recv_string(msg = '')
+        @sock.recv_string(payload = '')
 
         begin
-          payload = unmarshal(msg)
-          event = payload.keys.first
-          data = payload[event]
-          @on_event.call(self, event, data) if @on_event
+          msg = Message.new(unmarshal(payload))
+          break unless dispatch(msg)
         rescue => err
-          @on_error.call(self, err, nil) if @on_error
+          @on_exception.call(self, err) if @on_exception
         end
       end
+    end
+
+    def dispatch(msg)
+      case msg.event
+      when "__authRequired"
+        authenticate!(@uri.path, @uri.user, @uri.password)
+      when "__authenticated"
+        @authenticated = true
+      when "__error"
+        if msg.code == 402
+          disconnect
+          return false
+        else
+          @on_error.call(self, msg) if @on_error
+        end
+      else
+        @on_event.call(self, msg) if @on_event
+      end
+
+      true
     end
 
     def unmarshal(msg)
@@ -137,4 +158,19 @@ module WebRocket
       payload.to_json
     end
   end # Client
+  
+  class Message < Hash
+    attr_reader :event
+    
+    def initialize(data)
+      raise InvalidMessageError.new(data) if data.size != 1
+      @event = data.keys.first
+      super data[@event]
+    end
+
+    def method_missing(meth, *args, &block)
+      return self[meth] unless key?(meth)
+      super
+    end
+  end # Message
 end # WebRocket

@@ -22,14 +22,14 @@ include YodaChat
 
 $webrocket = WebRocket::Client.new("wr://yoda:pass@10.1.0.55:9773/yoda") 
 
-$webrocket.on_event { |c, event, data|
-  if event == "yodaize_and_send_to_all"
-    chan = data.delete("channel")
+$webrocket.on_event { |c, msg|
+  if msg.event == "yodaize_and_send_to_all"
+    chan = msg.delete("channel")
     room = Room.find(chan)
-    data = room.transform_and_store_message(data)
+    data = room.transform_and_store_message(msg)
     c.broadcast!(chan, "message_sent", data)
   else
-    puts "#{event}: #{data.inspect}"
+    puts "#{msg.event}: #{msg.inspect}"
   end
 }
 
