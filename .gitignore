@@ -10,3 +10,4 @@ tmp/
 *.log
 *.pid
 *.dump
+*.env

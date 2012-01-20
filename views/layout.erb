@@ -18,9 +18,11 @@
         <img src="/img/yoda-logo.png" alt="Yoda chat demo" />
       </h1>
     </header>
-    
-    <% if flash[:error] %>
-      <div id="flash_error" class="flash_message"><%=h flash[:error] %></div>
+
+    <% [:error, :notice].each do |key| %>
+      <% if flash[key] %>
+        <div id="flash_<%= key %>" class="flash_message"><%=h flash[key] %></div>
+      <% end %>
     <% end %>
     
     <%= yield %>

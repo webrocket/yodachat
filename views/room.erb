@@ -1,14 +1,12 @@
 <script>
-  var screenName = localStorage.hasOwnProperty("screenName") ?
+  var screenName = localStorage.hasOwnProperty("screenNamea") ?
     localStorage.screenName : "";
 
   while (screenName == "") {
     screenName = prompt("What's your name?");
-    localStorage.screenName = screenName;
+    //localStorage.screenName = screenName;
   }
 </script>
-
-
 
 <div id="room" role="main">
 <h2>On the '<%=h params[:id] %>' room welcome you are!</h2>
@@ -20,8 +18,6 @@
   <textarea id="new_message_text" name="new_message[text]" cols="77" rows="2"></textarea>
   <input type="submit" id="message_send" class="btn" value="Send">
 </form>
-
-
 
 <script type="text/html" id="message_tpl">
   <li>
@@ -36,87 +32,20 @@
 </script>
 
 <script defer="defer">
-  $.ajax('/room/<%= params[:id] %>/history.json', {
-    success: function(data) {
-      $.each(data, function(i, entry) {
-        console.log(entry);
-        appendMessage(entry);
-      })
-    }
-  }); 
-
-  var newMessage = $("#new_message")
-    , newMessageText = $("#new_message_text");
-  
-  newMessage.submit(function(e) {
-    wsSend(ws, {
-      "trigger": {
-        "event": "yodaize_and_send_to_all",
-        "data": {
-          "channel": "<%= params[:id] %>",
-          "author": screenName,
-          "message": newMessageText.val()
+    $.ajax('/room/<%= params[:id] %>/history.json', {
+        success: function(data) {
+            $.each(data, function(i, entry) {
+                console.log(entry);
+                appendMessage(entry);
+            });
         }
-      }
-    })
-    newMessageText.val("").focus();
-    e.preventDefault();
-  })
-  
-  newMessageText.keypress(function(e) {
-    if (e.which == 13) {
-      newMessage.submit();
-      e.preventDefault();
-    }
-  })
+    });
 
-  wsSend = function(ws, payload) {
-    return ws.send(JSON.stringify(payload))
-  }
-  
-  appendMessage = function(data) {
-    text = data["message"];
-    who = data["author"];
-    if (who == screenName) { who = "You" }
-    when = new Date(data["posted_at"]);
-    entry = $($("#message_tpl").html());
-    entry.find(".fn").html(who);
-    entry.find(".msg").html(text);
-    entry.find(".when").attr("datetime", when.toString()).html(when.getHours() + ":" + when.getMinutes());
-    $("#chatlog").append(entry);
-  }
-  
-  appendSysMessage = function(msg) {
-    entry = $($("#sys_message_tpl").html());
-    entry.html(msg);
-    $("#chatlog").append(entry);
-  }
-
-  var ws = new WebSocket("ws://10.1.0.55:9772/yoda")
-
-  ws.onopen = function() {
-    wsSend(ws, {"auth": {"user": "yoda", "secret": "pass"}})
-  }
-
-  ws.onmessage = function(evt) {
-    data = JSON.parse(evt.data);
-    
-    if (data.hasOwnProperty("__authenticated")) {
-      wsSend(ws, {"subscribe":{"channel": "<%= params[:id] %>"}})
-    } else if (data.hasOwnProperty("__subscribed")) {
-      wsSend(ws, {"broadcast": {"event": "joined", "channel": "<%= params[:id] %>", "data": {"name": screenName}}})
-    } else if (data.hasOwnProperty("message_sent")) {
-      d = data["message_sent"];
-      appendMessage(d);
-    } else if (data.hasOwnProperty("joined")) {
-      d = data["joined"]
-      who = d["name"]
-      if (who == screenName) { who = "You" }
-      appendSysMessage(who + " joined the room");
-    } else {
-      console.log(evt.data)
-    }
-  }
+    var accessToken = <%= $kosmonaut.request_single_access_token("presence-room-#{@room.id}").inspect %>
+      , chanName = "presence-room-<%= @room.id %>"
+      , ws = new WebSocket("<%= ENV['KOSMONAUT_WEBSOCKET_URL'] %>")
 </script>
+<script defer="defer" src="/js/helpers.js"></script>
+<script defer="defer" src="/js/room.js"></script>
 
 </div>
