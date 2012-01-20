@@ -11,15 +11,14 @@ set :root, File.dirname(__FILE__)
 set :views, File.join(settings.root, "views")
 set :public_folder, File.join(settings.root, "public")
 enable :sessions
-
 use Rack::Flash
 
 $LOAD_PATH.unshift(File.join(settings.root, "lib"))
 
-require 'webrocket/client'
 require 'yodachat'
 include YodaChat
 
+=begin
 $webrocket = WebRocket::Client.new("wr://yoda:pass@10.1.0.55:9773/yoda") 
 
 $webrocket.on_event { |c, event, data|
@@ -38,6 +37,7 @@ $webrocket.on_error { |c, err, data|
 }
 
 $webrocket.connect  
+=end
 
 helpers do
   def h(text)
@@ -49,26 +49,18 @@ get '/' do
   erb :index
 end
 
-# TODO: move validations to the model...
 post '/new' do
   room_id = if params["chat_name"].to_s.empty?
     Digest::SHA1.hexdigest(Time.now.to_s + (rand(1000000) + 1000).to_s)
   else
     URI.escape(params["chat_name"]);
   end
-  
-  begin
-    Room.find(room_id)
-    flash[:error] = "Room with such name already exists"
-  rescue RoomNotFoundError => err
-    # room doesn't exist, so we can create one...
+  if @room = Room.create(room_id)
+    flash[:notice] = "The room has been created!"
+    redirect "/room/#{room_id}"
+  else
+    erb :index
   end
-  
-  unless room_id =~ /^[\w\d\_\-\s]{,32}$/i
-    flash[:error] = "Channel name contains invalid characters or is too long"
-  end
-  
-  redirect flash[:error] ? "/" : "/room/#{room_id}"
 end
 
 get '/room/:id' do
