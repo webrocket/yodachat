@@ -8,10 +8,15 @@ Kosmonaut gem (http://github.com/webrocket/kosmonaut.rb).
 Getting started
 ---------------
 Installation and usage is extremally simple. First start and configure your 
-WebRocket instance:
+WebRocket server instance:
 
+    $ # Remember! Make sure your webrocket-server node is running ;)
     $ webrocket-admin add_vhost /yoda
     
+Run your Redis server instance:
+
+    $ redis-server /etc/redis.conf
+   
 Now copy `.env.sample` file to `.env` and replace its contents with your
 configuration. If you're done, then load it:
 
@@ -22,7 +27,7 @@ Install app dependencies using bundler:
     $ gem install bundler
     $ bundle install
     
-And start the app with foreman (http://github.com/ddollar/foreman):
+And start the app with foreman (http://github.com/ddollar/foreman)...
 
     $ foreman start
 
