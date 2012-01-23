@@ -35,9 +35,13 @@ ws.onmessage = function(evt) {
     } else if (data.__subscribed) {
     } else if (data.__memberJoined) {
         d = data.__memberJoined
-        who = d.name
-        if (who == screenName) { who = "You" }
-        appendSysMessage(who + " joined the room");
+        if (d.name == screenName) {
+            $.when(loadHistory()).then(function() {
+                appendSysMessage("You joined the room");
+            })
+        } else {
+            appendSysMessage(d.name + " joined the room");
+        }
     } else if (data.__memberLeft) {
         d = data.__memberLeft
         who = d.name

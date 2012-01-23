@@ -9,8 +9,9 @@ module YodaChat
         room = Room.find(chan.sub(/^presence-room-/, ''))
         data = room.transform_and_store_message(data)
         $kosmonaut.broadcast(chan, "messageSent", data)
+        puts "BROADCASTED: `messageSent`: #{data.inspect}"
       else
-        raise "Event not supported"
+        raise "Event `#{event}` is not supported"
       end
     end
 

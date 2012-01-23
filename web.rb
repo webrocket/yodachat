@@ -38,6 +38,7 @@ end
 get '/room/:id' do
   @room = Room.find_or_create(params[:id])
   @entries = @room.recent_messages
+  @single_access_token = $kosmonaut.request_single_access_token("presence-room-#{@room.id}")
   erb :room
 end
 

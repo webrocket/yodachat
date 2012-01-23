@@ -19,3 +19,14 @@ appendSysMessage = function(msg) {
     entry.html(msg);
     $("#chatlog").append(entry);
 }
+
+loadHistory = function() {
+    return $.ajax('/room/'+roomId+'/history.json', {
+        success: function(data) {
+            $.each(data, function(i, entry) {
+                console.log(entry);
+                appendMessage(entry);
+            });
+        }
+    });
+}

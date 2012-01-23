@@ -6,7 +6,8 @@ gem 'redis'
 gem 'rack-flash'
 gem 'activesupport', "~> 3.1"
 gem 'activemodel', "~> 3.1"
-gem 'kosmonaut'
+gem 'kosmonaut', ">= 0.2.3", :path => "~/Dev/Open/kosmonaut.rb"
+gem 'thin'
 
 group :development do
   gem 'rspec'

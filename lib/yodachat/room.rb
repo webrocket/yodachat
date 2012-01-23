@@ -33,7 +33,7 @@ module YodaChat
     
     def self.find(id)
       if $redis.exists(key = key(id))
-        $kosmonaut.open_channel("presence-room-#{id}") if $kosmonaut
+        #$kosmonaut.open_channel("presence-room-#{id}") if $kosmonaut
         attrs = $redis.hgetall(key)
         new(attrs)
       else

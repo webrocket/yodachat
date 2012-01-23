@@ -31,21 +31,13 @@
   <li class="sys_msg"></li>
 </script>
 
-<script defer="defer">
-    $.ajax('/room/<%= params[:id] %>/history.json', {
-        success: function(data) {
-            $.each(data, function(i, entry) {
-                console.log(entry);
-                appendMessage(entry);
-            });
-        }
-    });
-
-    var accessToken = <%= $kosmonaut.request_single_access_token("presence-room-#{@room.id}").inspect %>
-      , chanName = "presence-room-<%= @room.id %>"
-      , ws = new WebSocket("<%= ENV['KOSMONAUT_WEBSOCKET_URL'] %>")
-</script>
 <script defer="defer" src="/js/helpers.js"></script>
 <script defer="defer" src="/js/room.js"></script>
+<script defer="defer">   
+    var accessToken = "<%= @single_access_token %>"
+      , chanName = "presence-room-<%= @room.id %>"
+      , roomId = "<%= params[:id] %>"
+      , ws = new WebSocket("<%= $WEBSOCKET_URL %>")
+</script>
 
 </div>
