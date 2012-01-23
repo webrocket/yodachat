@@ -16,7 +16,6 @@ describe YodaChat::Room do
     context "when gien name is invalid" do
       it "stores proper errors" do
         room = subject.create("%%%")
-        room.should be
         room.errors[:id].should_not be_empty
       end
     end

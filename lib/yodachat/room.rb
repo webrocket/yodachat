@@ -23,9 +23,9 @@ module YodaChat
 
     include ActiveModel::Validations
     
-    # Room id can contain only letters, digits, spaces underscores
+    # Room id can contain only letters, digits, underscores
     # and dashes. Can't be longer than 32 characters.
-    validates :id, :format => /^[\w\d\_\-\s]{,32}$/
+    validates :id, :format => /^[\w\d\_\-]{,32}$/
 
     # Validating uniqueness of the room's name.
     validates_each :id do |room, _, value| 
@@ -83,17 +83,24 @@ module YodaChat
     #
     # id - An ID of the room to be created.
     #
-    # Returns a room instance.
+    # Returns created room instance.
     def self.create(id)
-      room = new(:id => id, :created_at => Time.now)
-      if room.valid?
-        $redis.mapped_hmset(key(id), room.to_hash)
-        $kosmonaut.open_channel("presence-room-#{id}") if $kosmonaut
-      end
+      room = new(:id => id)
+      room.save
       room
     end
 
     public
+
+    # Public: Saves the room's information and returns whether attributes
+    # are alid or not.
+    def save
+      return false unless valid?
+      self.created_at = Time.now
+      $redis.mapped_hmset(self.class.key(id), to_hash)
+      $kosmonaut.open_channel("presence-room-#{id}") if $kosmonaut
+      true
+    end
 
     # Public: Returns a messages scope.
     #

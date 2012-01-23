@@ -27,7 +27,7 @@ post '/new' do
   else
     URI.escape(params["chat_name"]);
   end
-  if @room = Room.create(room_id)
+  if @room = Room.new(:id => room_id) and @room.save
     flash[:notice] = "The room created has been!"
     redirect "/room/#{room_id}"
   else
