@@ -32,9 +32,9 @@ ws.onmessage = function(evt) {
     
     if (data.__authenticated) {
         wsSend(ws, {"subscribe":{"channel": chanName, "data":{"name": screenName}}})
-    } else if (data.__subscribed) {
-    } else if (data.__memberJoined) {
-        d = data.__memberJoined
+    } else if (data[":subscribed"]) {
+    } else if (data[":memberJoined"]) {
+        d = data[":memberJoined"]
         if (d.name == screenName) {
             $.when(loadHistory()).then(function() {
                 appendSysMessage("You joined the room");
@@ -42,8 +42,8 @@ ws.onmessage = function(evt) {
         } else {
             appendSysMessage(d.name + " joined the room");
         }
-    } else if (data.__memberLeft) {
-        d = data.__memberLeft
+    } else if (data[":memberLeft"]) {
+        d = data[":memberLeft"]
         who = d.name
         if (who == screenName) { who = "You" }
         appendSysMessage(who + " left the room");
