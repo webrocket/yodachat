@@ -29,10 +29,23 @@ And start the app with foreman (http://github.com/ddollar/foreman):
 Now you shall go to 'http://localhost:5000' and see an amazing yodachat
 application powered by WebRocket's awesomness.
 
+Deploying on heroku
+-------------------
+Deployment on heroku is extremally easy. Just follow those steps:
+
+    $ heroku create --stack cedar
+    $ heroku addons:add redistogo:nano
+    $ heroku config:add WEBROCKET_BACKEND_URL={your WebRocket's backend endpoint URL}
+    $ heroku config:add WEBROCKET_WEBSOCKET_URL={your WebRocket's websocket endpoint URL}
+    $ git push heroku master
+    $ heroku scale worker=1 web=1
+    
+Now go to the website, and enjoy! 
+
 Authors
 -------
 Chris Kowalik <chris@nu7hat.ch>:: 
-    The ruby backend, integration with kosmonaut.
+    The ruby backend and integration with Kosmonaut.
 
 Nicolas Barrera <drummerhead@gmail.com>::
     Awesome responsive layout with HTML5 and CSS3 sugar!
