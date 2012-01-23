@@ -35,8 +35,8 @@ Deployment on heroku is extremally easy. Just follow those steps:
 
     $ heroku create --stack cedar
     $ heroku addons:add redistogo:nano
-    $ heroku config:add WEBROCKET_BACKEND_URL={your WebRocket's backend endpoint URL}
-    $ heroku config:add WEBROCKET_WEBSOCKET_URL={your WebRocket's websocket endpoint URL}
+    $ heroku config:add WEBROCKET_BACKEND_URL={backend endpoint URL}
+    $ heroku config:add WEBROCKET_WEBSOCKET_URL={websocket endpoint URL}
     $ git push heroku master
     $ heroku scale worker=1 web=1
     
