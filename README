@@ -1,0 +1,60 @@
+YodaChat - To chat Master Yoda invites you!
+===========================================
+
+YodaChat is a simple example application to demonstrate how to use WebRocket 
+(http://github.com/webrocket/webrocket) from ruby applications using the 
+Kosmonaut gem (http://github.com/webrocket/kosmonaut.rb).
+
+Getting started
+---------------
+Installation and usage is extremally simple. First start and configure your 
+WebRocket instance:
+
+    $ webrocket-admin add_vhost /yoda
+    
+Now copy `.env.sample` file to `.env` and replace its contents with your
+configuration. If you're done, then load it:
+
+    $ . .env
+    
+Install app dependencies using bundler:
+
+    $ gem install bundler
+    $ bundle install
+    
+And start the app with foreman (http://github.com/ddollar/foreman):
+
+    $ foreman start
+
+Now you shall go to 'http://localhost:5000' and see an amazing yodachat
+application powered by WebRocket's awesomness.
+
+Authors
+-------
+Chris Kowalik <chris@nu7hat.ch>:: 
+    The ruby backend, integration with kosmonaut.
+
+Nicolas Barrera <drummerhead@gmail.com>::
+    Awesome responsive layout with HTML5 and CSS3 sugar!
+    
+Sponsors
+--------
+This project has been done in a free time at Cubox - an awesome dev shop
+from Uruguay <http://cuboxsa.com>.
+
+Copyright
+---------
+Copyright (C) 2011 by folks at Cubox <dev@cuboxsa.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
