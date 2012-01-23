@@ -1,5 +1,12 @@
 class String
+  # Public: Transforms sentence to yoda-like language.
   # Inspired by http://www.perlmonks.org/?node_id=162190
+  #
+  # Examples
+  #
+  #     "The force is strong in you!".to_yoda
+  #     # => "Strong in you, the force is!"
+  #
   def to_yoda
     imarks = '\?\.\!\;'
     yodawords = %w{must shall should is be will show do try are teach have} 

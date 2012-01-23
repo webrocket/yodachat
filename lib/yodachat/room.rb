@@ -1,8 +1,20 @@
 require 'ostruct'
 require 'active_model'
+require 'yodachat/message'
 
 module YodaChat
+  # Public: Representation of the room record. 
+  #
+  # Examples
+  # 
+  #     room = Room.create("hello")
+  #     room.messages.create(
+  #       :message => "The force is strong in you!",
+  #       :author  => "Master Yoda"
+  #     )
+  #
   class Room < OpenStruct
+    # Public: Error thrown when given romm couldn't be found.
     class NotFoundError < StandardError
       def initialize(room_id)
         super "Room #{room_id} not found!"
@@ -11,8 +23,11 @@ module YodaChat
 
     include ActiveModel::Validations
     
+    # Room id can contain only letters, digits, spaces underscores
+    # and dashes. Can't be longer than 32 characters.
     validates :id, :format => /^[\w\d\_\-\s]{,32}$/
 
+    # Validating uniqueness of the room's name.
     validates_each :id do |room, _, value| 
       begin
         Room.find(value)
@@ -20,20 +35,42 @@ module YodaChat
       rescue NotFoundError
       end
     end
-
+    
+    # Internal: Composes redis key for given room id.
+    #
+    # id     - The room id to be packed.
+    # suffix - A key's suffix.
+    #
+    # Examples
+    #
+    #     Room.key("hello", "world")
+    #     # => "room.hello.world"
+    #
+    # Returns composed room's key.
     def self.key(id, suffix=nil)
       "room.#{id}#{suffix ? ".#{suffix}" : ""}"
     end
 
+    # Public: Finds room with the specified ID. If there's no such one
+    # in the database then it creates a new record for it.
+    #
+    # id - An ID of the room to be found or created.
+    #
+    # Returns a room instance.
     def self.find_or_create(id)
       find(id)
     rescue NotFoundError
       create(id)
     end
     
+    # Public: Finds room with the specified ID. If there's no such one
+    # in the database then a Kosmonaut::Room::NotFoundError will be thrown.
+    #
+    # id - An ID of the room to be found.
+    #
+    # Returns a room instance.
     def self.find(id)
       if $redis.exists(key = key(id))
-        #$kosmonaut.open_channel("presence-room-#{id}") if $kosmonaut
         attrs = $redis.hgetall(key)
         new(attrs)
       else
@@ -41,33 +78,35 @@ module YodaChat
       end
     end
 
+    # Public: Creates new room with the specified ID and creates the
+    # WebRocket's channel for it as well. 
+    #
+    # id - An ID of the room to be created.
+    #
+    # Returns a room instance.
     def self.create(id)
       room = new(:id => id, :created_at => Time.now)
-      return false unless room.valid?
-      $redis.mapped_hmset(key(id), room.to_hash)
-      $kosmonaut.open_channel("presence-room-#{id}") if $kosmonaut
+      if room.valid?
+        $redis.mapped_hmset(key(id), room.to_hash)
+        $kosmonaut.open_channel("presence-room-#{id}") if $kosmonaut
+      end
       room
     end
 
     public
-    
-    def transform_and_store_message(data)
-      key = self.class.key(id, "history")
-      data["message"] = data["message"].to_yoda
-      data["posted_at"] = posted_at = Time.now.to_i
-      $redis.zadd(key, posted_at, data.to_json)
-      data
-    end
-    
-    def recent_messages(count=20)
-      key = self.class.key(id, "history")
-      $redis.zrange(key, 0, count).map { |entry|
-        data = JSON.parse(entry)
-        data["posted_at"] = Time.at(data["posted_at"]).iso8601
-        data
-      }
-    end
 
+    # Public: Returns a messages scope.
+    #
+    # Examples
+    #
+    #     room.messages.create(:message => "Hello Space!")
+    #     room.messages.recent.each { |msg| ... }
+    #     
+    def messages
+      @messages ||= Message.for(self)
+    end
+    
+    # Public: Returns room information as a hash.
     def to_hash
       {
         :id => id,

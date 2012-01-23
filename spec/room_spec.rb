@@ -15,7 +15,9 @@ describe YodaChat::Room do
 
     context "when gien name is invalid" do
       it "stores proper errors" do
-      
+        room = subject.create("%%%")
+        room.should be
+        room.errors[:id].should_not be_empty
       end
     end
   end
@@ -42,7 +44,7 @@ describe YodaChat::Room do
     end
   end
 
-  describe ".find_or_create!" do
+  describe ".find_or_create" do
     context "when room exists" do
       before do
         subject.create("hello3")

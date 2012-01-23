@@ -23,15 +23,13 @@ $newMessageText.keypress(function(e) {
     }
 })
 
-ws.onopen = function() {
-    wsSend(ws, {"auth":{"token": accessToken}})
-}
-
 ws.onmessage = function(evt) {
     data = JSON.parse(evt.data);
     
-    if (data.__authenticated) {
+    if (data[":authenticated"]) {
         wsSend(ws, {"subscribe":{"channel": chanName, "data":{"name": screenName}}})
+    } else if (data[":connected"]) {
+        wsSend(ws, {"auth":{"token": accessToken}})
     } else if (data[":subscribed"]) {
     } else if (data[":memberJoined"]) {
         d = data[":memberJoined"]

@@ -45,5 +45,5 @@ end
 get '/room/:id/history.json' do
   content_type "application/json"
   @room = Room.find(params[:id])
-  @room.recent_messages.to_json
+  @room.messages.recent.map(&:to_hash).to_json
 end
