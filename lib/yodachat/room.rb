@@ -25,7 +25,7 @@ module YodaChat
     
     # Room id can contain only letters, digits, underscores
     # and dashes. Can't be longer than 32 characters.
-    validates :id, :format => /^[\w\d\_\-]{,32}$/
+    validates :id, :format => /^[\w\d\_\-]{,46}$/
 
     # Validating uniqueness of the room's name.
     validates_each :id do |room, _, value| 
