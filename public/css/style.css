@@ -189,7 +189,7 @@ h2 {
   background: #2d3832;
   width: 865px;
   margin-top: -190px;
-  margin-bottom: 100px;
+  margin-bottom: 40px;
   z-index: 1;
   position: relative;
 }
@@ -200,7 +200,7 @@ h2 {
   text-align: right;
 }
 #nav li {
-  font-size: 1.6em;
+  font-size: 1.4em;
   font-family: DistantGalaxy, "Arial Black", sans-serif;
   display: inline-block;
   float: left;
@@ -271,19 +271,16 @@ h1 img {
     color: rgba(0,0,0,0.3);
 }
 #room {
-  position: fixed;
   bottom: 0;
-  z-index: 15001;
-  padding-bottom: 0;
-  margin-bottom: 0;
 }
 div#error {
-   margin: 0 3em;
+   margin: 1em 3em;
+   position: relative;
 }
 div#error p {
   color: #FFF;
   background: #DD3366;
-  padding: 1em 2em;
+  padding: 2em 2em 1em 2em;
   margin: 0;
   font-family: DistantGalaxy, "Arial Black", sans-serif;
   font-size: 1.4em;
