@@ -47,3 +47,7 @@ get '/room/:id/history.json' do
   @room = Room.find(params[:id])
   @room.messages.recent.map(&:to_hash).to_json
 end
+
+not_found do
+  File.read(File.join(settings.public_folder, "404.html"))
+end

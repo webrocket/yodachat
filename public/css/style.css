@@ -17,6 +17,7 @@ body {
   position: relative;
   font-size: 1em;
   line-height: 1.4;
+  background-color: #6a8576;
 }
 body,
 button,
@@ -77,6 +78,17 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 table { border-collapse: collapse; border-spacing: 0; }
 td { vertical-align: top; }
 
+/* ==|== custom font faces ================================================== */
+@font-face {
+    font-family: 'DistantGalaxy';
+    src: url('../fonts/DISTGRG_-webfont.eot');
+    src: url('../fonts/DISTGRG_-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/DISTGRG_-webfont.woff') format('woff'),
+         url('../fonts/DISTGRG_-webfont.ttf') format('truetype'),
+         url('../fonts/DISTGRG_-webfont.svg#DistantGalaxyRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 /* ==|== primary styles, DrummerHead style, biatch ========================== */
 h1,
@@ -85,7 +97,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  font-family: DistantGalaxy, "Arial Black", sans-serif;
 }
 h1 {
   font-size: 2em;
@@ -115,14 +127,14 @@ h2 {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -webkit-transition: 0.1s linear all;
-  -moz-transition: 0.1s linear all;
-  -ms-transition: 0.1s linear all;
-  -o-transition: 0.1s linear all;
-  transition: 0.1s linear all;
+  -webkit-box-shadow: inset 1px 2px 0px rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 1px 2px 0px rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 1px 2px 0px rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-transition: 0.05s linear all;
+  -moz-transition: 0.05s linear all;
+  -ms-transition: 0.05s linear all;
+  -o-transition: 0.05s linear all;
+  transition: 0.05s linear all;
 }
 .btn:hover {
   background-position: 0 -15px;
@@ -133,9 +145,9 @@ h2 {
   outline: 1px dotted #666;
 }
 .btn:active {
-  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.35), 0 1px 2px 1gba(0, 0, 0, 0.05);
 }
 .btn.large {
   font-size: 1em;
@@ -151,41 +163,84 @@ h2 {
 }
 
 .hero {
-  background-color: #f5f5f5;
-  margin: 3em;
+  background-color: #3d5749;
+  margin: 1em 3em 1em 3em;
   padding: 4em;
   text-align: center;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
+  box-shadow: 10px 10px 0px rgba(255,255,255,.1);
 }
 .hero h2 {
   margin: 0 0 1em 0;
-  font-size: 2.4em;
+  font-size: 2.8em;
   line-height: 1;
   letter-spacing: -1px;
+  color: #d9d0ab;
+  text-shadow: rgba(0,0,0,0.9) 5px 5px 1px;
 }
 .hero p {
   font-size: 120%;
   font-weight: 200;
   line-height: 1.4;
 }
-
+#nav {
+  margin: 0 auto;
+  display: block;
+  padding: 0;
+  background: #2d3832;
+  width: 865px;
+  margin-top: -190px;
+  margin-bottom: 100px;
+  z-index: 1;
+  position: relative;
+}
+#nav .left {
+  text-align: left;
+}
+#nav .right {
+  text-align: right;
+}
+#nav li {
+  font-size: 1.6em;
+  font-family: DistantGalaxy, "Arial Black", sans-serif;
+  display: inline-block;
+  float: left;
+  width: 50%;
+}
+#nav a {
+  padding: 0.9em 1.5em;
+  display: block;
+  text-decoration: none;
+  color: #d9d0ab;
+  text-shadow: rgba(0,0,0,0.9) 3px 3px 1px;
+}
+#nav a:hover {
+  color: #FFBB33;
+}
 #container {
   min-height: 100%;
-  padding-bottom: 3.4em;
+  padding-bottom: 1em;
 }
 [role="banner"] {
-  width: 20em;
-  padding: 2em 1em;
-  position: fixed;
-  top: 0;
-  right: 0;
+  padding: 1em 0;
+  text-align: center;
 }
 [role="banner"] h1 {
   width: 100%;
   margin: 0;
   text-align: center;
+}
+#logo {
+   background: url("../img/yoda-logo-250.png") top left no-repeat;
+   width: 250px;
+   z-index: 2;
+   position: relative;
+   height: 250px;
+   display: block;
+   margin: 0 auto;
+   margin-bottom: 1em;
+   margin-top: 0.5em;
+   text-indent: -9999px;
+   cursor: pointer;
 }
 h1 img {
   display: inline-block;
@@ -193,44 +248,87 @@ h1 img {
 }
 [role="main"] {
   padding: 1em;
-  margin-right: 22em;
 }
 #landing {
+   margin-top: -2em;
+   margin-bottom: 4em;
 }
 #new_chat_name {
-  width: 21em;
+  width: 85%;
   padding: .5em;
   line-height: 1.2em;
-  font-size: 1em;
-  border: 1px solid #ccc;
+  background-color: #e6d7b5;
+  font-size: 1.2em;
+  border: 2px solid #1d3729;
   margin: 0 0 1em 0;
   border-radius: 3px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: rgba(0,0,0,.8);
+  box-shadow: 2px 2px 0 rgba(255,255,255,0.2);
+}
+#new_chat_name::-webkit-input-placeholder,
+#new_chat_name::-moz-placeholder,
+#new_chan_name[placeholder] {
+    color: rgba(0,0,0,0.3);
 }
 #room {
+  position: fixed;
+  bottom: 0;
+  z-index: 15001;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+div#error {
+   margin: 0 3em;
+}
+div#error p {
+  color: #FFF;
+  background: #DD3366;
+  padding: 1em 2em;
+  margin: 0;
+  font-family: DistantGalaxy, "Arial Black", sans-serif;
+  font-size: 1.4em;
+  text-align: center;
 }
 #new_chat {
 }
 #new_chat_button {
+  font-size: 1.4em;
+  font-family: DistantGalaxy, "Arial Black", sans-serif;
+  color: rgba(0,0,0,.8);
+  background: #FFBB33;
+  text-shadow: none;
+  padding: 0.9em 2.5em;
+  border: 1px solid rgba(0,0,0,0.75);
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+#new_chat_button:hover, #message_send:hover {
+  color: rgb(0,0,0);
+  background: #FFCC44;
+  text-shadow: 2px 2px 0px rgba(0,0,0,.3);
+}
+#new_chat_button:active, #message_send:active {
+  text-shadow: none;
+  color: rgb(0,0,0);
+  background: #FFBB33;
 }
 #room > h2 {
   max-width: 54em;
   margin-right: auto;
   margin-left: auto;
 }
-#chatlog,
-#new_message {
-  width: 96%;
-  max-width: 77em;
-  margin: 0 auto;
-  padding: 2%;
-}
 #chatlog {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 100%;
+  padding: 0;
   background-color: #f8f8f8;
   list-style-type: none;
-  -moz-box-shadow: 0 0 10px rgba(120, 120, 120, .2);
-  -webkit-box-shadow: 0 0 10px rgba(120, 120, 120, .2);
-  box-shadow: 0 0 10px rgba(120, 120, 120, .2);
+  -moz-box-shadow: 0 0 15px rgba(0, 0, 0, .3);
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, .3);
+  box-shadow: 0 0 15px rgba(0, 0, 0, .3);
 }
 #chatlog li {
   padding: .4em 0 .8em 0;
@@ -281,34 +379,63 @@ time {
   /*background-color: rgba(0, 0, 255, .5);*/
 }
 #new_message {
-  background-color: #f8f8f8;
-  -moz-box-shadow: 0 5px 10px rgba(120, 120, 120, .2);
-  -webkit-box-shadow: 0 5px 10px rgba(120, 120, 120, .2);
-  box-shadow: 0 5px 10px rgba(120, 120, 120, .2);
+  background-color: #000209;
+  -moz-box-shadow: 0 5px 15px rgba(120, 120, 120, .2);
+  -webkit-box-shadow: 0 5px 15px rgba(120, 120, 120, .2);
+  box-shadow: 0 5px 15px rgba(120, 120, 120, .2);
+  z-index: 200;
+  height: 5.5em;
+}
+#new_message .inner {
+   padding: 1em;
 }
 #new_message_text {
-  margin: 0 0 0 12%;
-  width: 76%;
+  width: 87%;
+  background: #333;
+  border: 1px solid #3A3A3A;
+  box-shadow: 2px 2px 4px rgba(0,0,0,.5) inset;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  padding: 0.4em 0.4em;
+  color: #CCC;
+  float: left;
+  height: 2.85em;
 }
 #message_send {
+  font-size: 1.1em;
+  font-family: DistantGalaxy, "Arial Black", sans-serif;
+  color: #000209;
+  background: #FFCC33;
+  text-shadow: none;
+  padding: 0.9em 0;
+  border: 1px solid rgba(0,0,0,0.5);
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
   width: 10%;
-  height: 3.3em;
-  padding: 0;
+  height: 3.4em;
   float: right;
+}
+label .label {
+   display: none;
 }
 
 [role="contentinfo"] {
-  height: 1.4em;
-  padding: 1em 2em;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  text-align: right;
-  background-color: #eee;
-  -moz-box-shadow: 0 -3px 10px rgba(120, 120, 120, .5) inset;
-  -webkit-box-shadow: 0 -3px 10px rgba(120, 120, 120, .5) inset;
-  box-shadow: 0 -3px 10px rgba(120, 120, 120, .5) inset;
+  margin-top: 2.5em;
+  width: 100%;
+  padding: 1em 0;
+  color: rgba(255,255,255,.3);
+  background-color: #000;
+  text-align: center;
+  width: 100%;
+}
+[role="contentinfo"] a {
+   color: rgba(255,255,255,.5);
+}
+[role="contentinfo"] a:hover {
+   color: rgba(255,255,255,.2);
+   text-decoration: none;
 }
 
 /* ==|== non-semantic helper classes ======================================== */
@@ -322,27 +449,46 @@ time {
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
 
-
 /* ==|== media queries ====================================================== */
-
-@media (max-width: 960px) {
-  [role="banner"] {
-    width: 10em;
-    top: 1.5em;
+@media (min-width: 1280px) {
+  .hero h2 {
+    font-size: 3.8em !important;
   }
+}
+@media (min-width: 1024px) {
   [role="main"] {
-    margin-right: 12em;
+    width: 960px;
+    margin: 0 auto;
+  }
+  #room {
+    width: 65%;
+  }
+  .hero h2 {
+    font-size: 3.4em;
+  }
+}
+@media (max-width: 960px) {
+  [role="main"] {
+  }
+  #new_message_text {
+    width: 84%; 
+  }
+  #message_send {
+    width: 12%;
+  }
+  #room {
+    width: 65%;
   }
 }
 @media (max-width: 768px) {
-  [role="banner"] {
-    width: 6em;
-    padding: .5em;
-    position: absolute;
-    top: 0;
+  #logo {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 0.5em;
+    background-image: url("../img/yoda-logo-150.png");
   }
-  [role="main"] {
-    margin-right: 0;
+  [role="contentinfo"] {
+    font-size: 90%;
   }
   #room h2 {
     margin-right: 4em;
@@ -350,14 +496,42 @@ time {
     overflow: hidden;
   }
   .hero {
-    padding: 3em 1em;
+    padding: 2.5em 1em;
+  }
+  .hero h2 {
+    font-size: 2.4em;
   }
   #new_chat_button {
-    padding: 10px;
-    font-size: 1em;
+    font-size: 1.2em;
+  }
+  #new_chat_name {
+    font-size: 1.1em;
+  }
+  #new_message_text {
+    width: 82%; 
+  }
+  #message_send {
+    width: 14%;
   }
 }
 @media (max-width: 480px) {
+  [role="banner"] {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+  #logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 0.3em;
+    background-image: url("../img/yoda-logo-100.png");
+    margin-left: 0.6em;
+  }
+  [role="contentinfo"] {
+    font-size: 80%;
+    text-align: center;
+    margin-top: 0;
+  }
   #chatlog {
     font-size: .8em;
   }
@@ -370,31 +544,42 @@ time {
   time {
     width: 15%;
   }
-  #new_message_text {
-    width: 82%;
-    margin: 0;
+  #new_chat_name {
+     font-size: 0.9em;
   }
   #container {
     position: relative;
   }
+  #new_message_text {
+    width: 74%; 
+  }
   #message_send {
-    width: 14%;
+    width: 20%;
+  }
+  #landing {
+     margin-top: 0;
+     padding-top: 0;
+     margin-bottom: 0;
   }
   .hero {
-    margin: 2em .4em .4em;
+    margin: 0.6em .4em .4em;
     position: relative;
     z-index: 9876;
   }
+  .hero h2 {
+    font-size: 1.9em;
+  }
+  div#error {
+    font-size: .7em;
+    margin: 0.6em .6em 1em .6em;
+  }
   #new_chat_button {
+    padding: 0.7em 0;
     width: 90%;
   }
 }
 
-
-
-
 /* ==|== print styles ======================================================= */
- 
 @media print {
   * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } 
   a, a:visited { text-decoration: underline; }

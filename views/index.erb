@@ -1,21 +1,32 @@
+<header role="banner">
+  <h1><a href="/" id="logo">YodaChat!</a></h1>
+  <menu id="nav">
+    <li><a href="#/how" class="left">How it works?</a></li>
+    <li><a href="#/who" class="right">Who are we?</a></li>
+    <div class="clearfix"></div>
+  </menu>
+</header>
+
 <div id="landing" role="main">
+
+<% if @room && !@room.errors.empty? %>
+  <div id="error"><p>Uhm, the channel created can't be, name invalid has!</p></div>
+<% end %>
+
 <div class="hero">
 
-<h2>Master Yoda to chat invites you!</h2>
+<h2>To chat, Master Yoda invites you!</h2>
 
 <form action="/new" method="post" id="new_chat">
-  <% if @room && !@room.errors.empty? %>
-    <div class="errors">
-      <h3>Uhm, the channel created can't be!</h3>
-      <ul>
-        <% @room.errors.full_messages.each do |err| %>
-          <li><%= err %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <input type="text" id="new_chat_name" name="chat_name" value="<%=h params[:chat_name] %>" placeholder="Name of the Room">
-  <input type="submit" id="new_chat_button" class="btn large" value="To new room create, click here you must!">
+  <div class="fields">
+    <label for="new_chan_name">
+      <span class="label">Name of the room</span>
+      <input type="text" id="new_chat_name" name="chat_name" value="<%=h params[:chat_name] %>" placeholder="Name of the room...">
+    </label>
+  </div>
+  <div class="buttons">
+    <input type="submit" id="new_chat_button" class="btn large" value="New room create!">
+  </div>
 </form>
 
 </div>
