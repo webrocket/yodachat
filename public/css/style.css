@@ -165,13 +165,13 @@ h2 {
 .hero {
   background-color: #3d5749;
   margin: 1em 3em 1em 3em;
-  padding: 4em;
+  padding: 4em 4em 3em 4em;
   text-align: center;
   box-shadow: 10px 10px 0px rgba(255,255,255,.1);
 }
 .hero h2 {
   margin: 0 0 1em 0;
-  font-size: 2.8em;
+  font-size: 2.0em;
   line-height: 1;
   letter-spacing: -1px;
   color: #d9d0ab;
@@ -186,7 +186,7 @@ h2 {
   margin: 0 auto;
   display: block;
   padding: 0;
-  background: #2d3832;
+  background-color: #2d3832;
   width: 865px;
   margin-top: -190px;
   margin-bottom: 40px;
@@ -218,7 +218,6 @@ h2 {
 }
 #container {
   min-height: 100%;
-  padding-bottom: 1em;
 }
 [role="banner"] {
   padding: 1em 0;
@@ -230,7 +229,7 @@ h2 {
   text-align: center;
 }
 #logo {
-   background: url("../img/yoda-logo-250.png") top left no-repeat;
+   background: url("../img/yoda-logo.png") top left no-repeat;
    width: 250px;
    z-index: 2;
    position: relative;
@@ -419,20 +418,59 @@ label .label {
 }
 
 [role="contentinfo"] {
-  margin-top: 2.5em;
   width: 100%;
   padding: 1em 0;
+  margin-top: -50px;
+  z-index: 15000;
+  position: relative;
   color: rgba(255,255,255,.3);
-  background-color: #000;
+  background-color: #1a2b22;
   text-align: center;
   width: 100%;
 }
 [role="contentinfo"] a {
-   color: rgba(255,255,255,.5);
+  color: rgba(255,255,255,.5);
 }
 [role="contentinfo"] a:hover {
-   color: rgba(255,255,255,.2);
-   text-decoration: none;
+  color: rgba(255,255,255,.2);
+  text-decoration: none;
+}
+#jedi_fight {
+  width: 100%;
+  height: 255px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+}
+#jedi_fight li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  height: 255px;
+  background-color: transparent;
+  background-repeat: repeat-x;
+  background-position: center bottom;
+  position: absolute;
+  bottom: 0;
+}
+#jedi_fight .back {
+  width: 120%;
+  background-color: #6a8576;
+  background-image: url(../img/footer-back.png);
+}
+#jedi_fight .middle {
+  width: 110%;
+  background-image: url(../img/footer-middle.png);
+}
+#jedi_fight .front {
+  width: 105%;
+  background-image: url(../img/footer-front.png);
+}
+#jedi_fight .jedi {
+  width: 105%;
+  background-repeat: no-repeat;
+  background-image: url(../img/footer-jedi.png);
 }
 
 /* ==|== non-semantic helper classes ======================================== */
@@ -449,7 +487,7 @@ label .label {
 /* ==|== media queries ====================================================== */
 @media (min-width: 1280px) {
   .hero h2 {
-    font-size: 3.8em !important;
+    font-size: 3em !important;
   }
 }
 @media (min-width: 1024px) {
@@ -461,7 +499,7 @@ label .label {
     width: 65%;
   }
   .hero h2 {
-    font-size: 3.4em;
+    font-size: 3.0em;
   }
 }
 @media (max-width: 960px) {
@@ -477,12 +515,17 @@ label .label {
     width: 65%;
   }
 }
+@media (min-width: 768px) {
+  .hero {
+    background-image: url(../img/wavecut.png);
+  }
+}
 @media (max-width: 768px) {
   #logo {
     width: 150px;
     height: 150px;
     margin-bottom: 0.5em;
-    background-image: url("../img/yoda-logo-150.png");
+    background-size: 150px 150px;
   }
   [role="contentinfo"] {
     font-size: 90%;
@@ -521,7 +564,7 @@ label .label {
     width: 100px;
     height: 100px;
     margin-bottom: 0.3em;
-    background-image: url("../img/yoda-logo-100.png");
+    background-size: 100px 100px;
     margin-left: 0.6em;
   }
   [role="contentinfo"] {
