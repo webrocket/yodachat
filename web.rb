@@ -38,7 +38,6 @@ end
 get '/room/:id' do
   @room = Room.find_or_create(params[:id])
   @entries = @room.recent_messages
-  @single_access_token = $kosmonaut.request_single_access_token("presence-room-#{@room.id}")
   erb :room
 end
 
@@ -46,6 +45,13 @@ get '/room/:id/history.json' do
   content_type "application/json"
   @room = Room.find(params[:id])
   @room.messages.recent.map(&:to_hash).to_json
+end
+
+get '/auth.json' do
+  content_type "application/json"
+  @channel, @uid = params.values_at(:channel, :uid)
+  @single_access_token = $kosmonaut.request_single_access_token(@uid, @channel)
+  {:token => @single_access_token}.to_json
 end
 
 not_found do

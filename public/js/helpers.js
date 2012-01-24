@@ -24,9 +24,18 @@ loadHistory = function() {
     return $.ajax('/room/'+roomId+'/history.json', {
         success: function(data) {
             $.each(data, function(i, entry) {
-                console.log(entry);
                 appendMessage(entry);
             });
         }
     });
+}
+
+authenticate = function(chanName) {
+    $.ajax("/auth.json?channel="+chanName+"&uid="+screenName, {
+        success: function(data) {
+            if (data.token) {
+                wsSend(ws, {"auth":{"token": data.token}})
+            }
+        }
+    })
 }

@@ -7,7 +7,7 @@ gem 'redis'
 gem 'rack-flash'
 gem 'activesupport', "~> 3.1"
 gem 'activemodel', "~> 3.1"
-gem 'kosmonaut', ">= 0.2.4"
+gem 'kosmonaut', ">= 0.3.0"
 gem 'thin'
 
 group :development do

@@ -29,7 +29,7 @@ ws.onmessage = function(evt) {
     if (data[":authenticated"]) {
         wsSend(ws, {"subscribe":{"channel": chanName, "data":{"name": screenName}}})
     } else if (data[":connected"]) {
-        wsSend(ws, {"auth":{"token": accessToken}})
+        authenticate(chanName);
     } else if (data[":subscribed"]) {
     } else if (data[":memberJoined"]) {
         d = data[":memberJoined"]
