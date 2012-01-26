@@ -10,7 +10,7 @@ require 'kosmonaut'
 require 'yodachat/worker'
 
 # Initialize redis client and connect it to specified URL.
-$redis = Redis.new(:url => ENV["REDIS_URL"])
+$redis = Redis.connect(:url => ENV["REDIS_URL"])
 
 # Initialize Kosmonaut REQ client and connect it to specified URL.
 $kosmonaut = Kosmonaut::Client.new(ENV["KOSMONAUT_BACKEND_URL"])

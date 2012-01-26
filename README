@@ -39,7 +39,7 @@ Deploying on heroku
 Deployment on heroku is extremally easy. Just follow those steps:
 
     $ heroku create --stack cedar
-    $ heroku addons:add redistogo:nano
+    $ heroku config:add REDIS_URL={redis URL/redistogo alias}
     $ heroku config:add WEBROCKET_BACKEND_URL={backend endpoint URL}
     $ heroku config:add WEBROCKET_WEBSOCKET_URL={websocket endpoint URL}
     $ git push heroku master
