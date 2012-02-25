@@ -1,12 +1,11 @@
-YodaChat - To chat Master Yoda invites you!
-===========================================
+# YodaChat - To chat Master Yoda invites you!
 
 YodaChat is a simple example application to demonstrate how to use WebRocket 
 (http://github.com/webrocket/webrocket) from ruby applications using the 
 Kosmonaut gem (http://github.com/webrocket/kosmonaut.rb).
 
-Getting started
----------------
+## Getting started
+
 Installation and usage is extremally simple. First start and configure your 
 WebRocket server instance:
 
@@ -34,8 +33,8 @@ And start the app with foreman (http://github.com/ddollar/foreman)...
 Now you shall go to 'http://localhost:5000' and see an amazing yodachat
 application powered by WebRocket's awesomness.
 
-Deploying on heroku
--------------------
+## Deploying on heroku
+
 Deployment on heroku is extremally easy. Just follow those steps:
 
     $ heroku create --stack cedar
@@ -47,8 +46,8 @@ Deployment on heroku is extremally easy. Just follow those steps:
     
 Now go to the website, and enjoy! 
 
-Authors
--------
+## Authors
+
 Krzysztof Kowalik <chris@nu7hat.ch>:: 
     The ruby backend and integration with Kosmonaut.
 
@@ -58,13 +57,13 @@ Nicolas Barrera <drummerhead@gmail.com>::
 Sebastian Heit <sebastian@cuboxsa.com>::
     Jedi fight vectors and footer's parallax.
 
-Sponsors
---------
+## Sponsors
+
 This project has been done in a free time at Cubox - an awesome dev shop
 from Uruguay <http://cuboxsa.com>.
 
-Copyright
----------
+## Copyright
+
 Copyright (C) 2011 by folks at Cubox <dev@cuboxsa.com>
 
 This program is free software: you can redistribute it and/or modify
