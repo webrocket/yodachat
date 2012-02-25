@@ -2,7 +2,7 @@
 
 YodaChat is a simple example application to demonstrate how to use WebRocket 
 (http://github.com/webrocket/webrocket) from ruby applications using the 
-Kosmonaut gem (http://github.com/webrocket/kosmonaut.rb).
+Kosmonaut gem (http://github.com/webrocket/kosmonaut-ruby).
 
 ## Getting started
 
