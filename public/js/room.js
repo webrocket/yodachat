@@ -4,7 +4,7 @@ var $newMessage = $("#new_message")
 $newMessage.submit(function(e) {
     wsSend(ws, {
         "trigger": {
-            "event": "yodaize_and_broadcast",
+            "event": "chat/yodaize_and_broadcast",
             "data": {
                 "channel": chanName,
                 "author": screenName,

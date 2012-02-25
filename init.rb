@@ -7,7 +7,7 @@ $WEBSOCKET_URL = ENV['KOSMONAUT_WEBSOCKET_URL']
 require 'bundler/setup'
 require 'redis'
 require 'kosmonaut'
-require 'yodachat/worker'
+require 'yodachat'
 
 # Initialize redis client and connect it to specified URL.
 $redis = Redis.connect(:url => ENV["REDIS_URL"])
