@@ -1,5 +1,6 @@
-PATH
-  remote: ~/code/kosmonaut.rb
+GIT
+  remote: git://github.com/webrocket/kosmonaut-ruby
+  revision: 95b04cf1b251086013f52073cb57d071d56b75d4
   specs:
     kosmonaut (0.4.0)
       activesupport (>= 3.0)
