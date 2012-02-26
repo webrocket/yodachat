@@ -27,7 +27,7 @@ module YodaChat
       data.stringify_keys!
       key = Room.key(@room_id, "messages")
       data["message"] = data["message"].to_yoda
-      data["posted_at"] = posted_at = Time.now.to_i
+      data["posted_at"] = posted_at = Time.now.to_f * 1e6
       $redis.zadd(key, posted_at, data.to_json)
       new(data)
     end
@@ -41,7 +41,7 @@ module YodaChat
       key = Room.key(@room_id, "messages")
       $redis.zrange(key, 0, count-1).map { |entry|
         data = JSON.parse(entry)
-        data["posted_at"] = Time.at(data["posted_at"]).iso8601
+        data["posted_at"] = Time.at(data["posted_at"] / 1e6).iso8601
         new(data)
       }
     end

@@ -1,20 +1,23 @@
 <div id="room" role="main">
-<h2>On the '<%=h params[:id] %>' room welcome you are!</h2>
-
 <ul id="chatlog">
 </ul>
 
 <form id="new_message">
   <div class="inner">
-    <label for="new_message_text" id="new_message_text_wrapper">
-      <span class="label">Your message:</span>
-      <textarea id="new_message_text" name="new_message[text]" cols="77" rows="2" autofocus="autofocus"></textarea>
-    </label>
-    <input type="submit" id="message_send" class="btn" value="Send">
-    <div class="clearfix"></div>
+    <div class="frame">
+      <label for="new_message_text" id="new_message_text_wrapper">
+        <span class="label">Your message:</span>
+        <textarea id="new_message_text" name="new_message[text]" cols="77" rows="2" autofocus="autofocus"></textarea>
+      </label>
+      <input type="submit" id="message_send" class="btn" value="Send">
+      <div class="clearfix"></div>
+    </div>
   </div>
 </form>
 
+<div class="in">
+</div>
+  
 </div>
 
 <script type="text/html" id="message_tpl">
@@ -32,12 +35,11 @@
 <script defer="defer" src="/js/helpers.js"></script>
 <script defer="defer" src="/js/room.js"></script>
 <script defer="defer">   
-    var screenName = localStorage.hasOwnProperty("screenNamea") ?
-        localStorage.screenName : "";
+    var screenName = !!localStorage.screenName ? localStorage.screenName : "";
 
     while (screenName == "") {
         screenName = prompt("What's your name?");
-        //localStorage.screenName = screenName;
+        localStorage.screenName = screenName;
     }
     
     var accessToken = "<%= @single_access_token %>"
