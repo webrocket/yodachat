@@ -43,7 +43,7 @@
     }
     
     var accessToken = "<%= @single_access_token %>"
-      , chanName = "presence-room-<%= @room.id %>"
-      , roomId = "<%= params[:id] %>"
+      , chanName = "presence-room-<%= @room.name %>"
+      , roomId = "<%= @room.name %>"
       , ws = new WebSocket("<%= $WEBSOCKET_URL %>")
 </script>

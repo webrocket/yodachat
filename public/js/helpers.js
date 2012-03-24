@@ -23,9 +23,11 @@ appendSysMessage = function(msg) {
 loadHistory = function() {
     return $.ajax('/room/'+roomId+'/history.json', {
         success: function(data) {
-            $.each(data, function(i, entry) {
-                appendMessage(entry);
-            });
+            if (!!data["history"]) {
+                $.each(data["history"], function(i, entry) {
+                    appendMessage(entry);
+                });
+            }
         }
     });
 }

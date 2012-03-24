@@ -8,6 +8,8 @@ $redis.flushdb
 require 'rspec'
 require 'yodachat'
 
+include YodaChat
+
 RSpec.configure do |conf|
   conf.mock_with :mocha
 end

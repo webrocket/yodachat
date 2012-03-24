@@ -1,5 +1,5 @@
 module YodaChat
-  module Yoda
+  module StringExt
     # Public: Transforms sentence to yoda-like language.
     # Inspired by http://www.perlmonks.org/?node_id=162190
     #
@@ -34,5 +34,5 @@ module YodaChat
 end
 
 class String
-  include YodaChat::Yoda
+  include YodaChat::StringExt
 end

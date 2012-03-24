@@ -48,6 +48,20 @@ Deployment on heroku is extremally easy. Just follow those steps:
     
 Now go to the website, and enjoy! 
 
+## Testing
+
+To run acceptance tests run:
+  
+    $ rake run
+   
+RSpec unit tests are available under:
+
+    $ rake test
+
+Invoking rake without arguments will cause run of all the tests together:
+
+    $ rake
+
 ## Authors
 
 Krzysztof Kowalik <chris@nu7hat.ch>:: 

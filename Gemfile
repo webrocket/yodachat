@@ -13,5 +13,6 @@ gem 'thin'
 group :development do
   gem 'rspec'
   gem 'mocha'
+  gem 'cucumber'
   gem 'foreman'
 end
