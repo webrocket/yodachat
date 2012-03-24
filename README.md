@@ -10,7 +10,7 @@ Installation and usage is extremally simple. First start and configure your
 WebRocket server instance:
 
     $ # Remember! Make sure your webrocket-server node is running ;)
-    $ webrocket-admin add_vhost /yoda
+    $ sudo webrocket-admin add_vhost /yoda
     
 Run your Redis server instance:
 
@@ -19,14 +19,16 @@ Run your Redis server instance:
 Now copy `.env.sample` file to `.env` and replace its contents with your
 configuration. If you're done, then load it:
 
-    $ . .env
-    
-Install app dependencies using bundler:
+Install bundler gem if you don't have it yet:
 
     $ gem install bundler
-    $ bundle install
+
+Run bootstrap script, and make sure that all the instruction steps has
+been acomplished:
+
+    $ ./script/bootstrap
     
-And start the app with foreman (http://github.com/ddollar/foreman)...
+Start the app with foreman (http://github.com/ddollar/foreman)...
 
     $ foreman start
 
