@@ -19,6 +19,8 @@ Run your Redis server instance:
 Now copy `.env.sample` file to `.env` and replace its contents with your
 configuration. If you're done, then load it:
 
+    $ source .env
+
 Install bundler gem if you don't have it yet:
 
     $ gem install bundler

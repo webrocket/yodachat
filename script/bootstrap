@@ -5,8 +5,5 @@ bundle install | while read line; do
     echo "     $line"
 done
 
-echo "---> Loading configuration"
-. .env
-
 echo
 cat ./bootstrap.txt

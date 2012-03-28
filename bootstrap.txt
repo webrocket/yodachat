@@ -2,12 +2,18 @@
 
 To make YodaChat working you have to prepare your environment:
 
+---> Load configuration
+
+     source .env
+
 ---> Start Redis server:
 
      eg. /etc/rc.d/redis start
 
 ---> Start WebRocket server:
+
      sudo webrocket-server
+     
 ---> Configure vhost for websockets:
 
      sudo webrocket-admin add_vhost /yoda

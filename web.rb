@@ -64,7 +64,7 @@ get '/room/:id/history.json' do |room_name|
   end
 end
 
-get '/auth.json' do
+get '/webrocket/auth.json' do
   @channel, @uid = params.values_at(:channel, :uid)
   @single_access_token = $kosmonaut.request_single_access_token(@uid, @channel)
 
