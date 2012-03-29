@@ -180,6 +180,16 @@ h2 {
   font-size: 120%;
   font-weight: 200;
   line-height: 1.4;
+  color: #D9D0AB;
+  text-shadow: 1px 1px 1px rgba(0,0,0,.6);
+}
+.hero p a {
+   color: #D9D0AB;
+   text-decoration: underline;
+}
+.hero p a:hover {
+   text-decoration: none;
+   color: #F9F0DB;
 }
 #nav {
   margin: 0 auto;

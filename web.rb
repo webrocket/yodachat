@@ -27,6 +27,14 @@ get '/' do
   erb :index
 end
 
+get '/how' do
+  erb :how
+end
+
+get '/webrocket' do
+  erb :webrocket
+end
+
 post '/new' do
   room_name = Digest::SHA1.hexdigest(Time.now.to_s + (rand(1000000) + 1000).to_s)
   create_room = CreateNewRoomService.new(room_name)

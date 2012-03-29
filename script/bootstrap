@@ -1,9 +1,0 @@
-#!/bin/bash
-
-echo "---> Installing dependencies"
-bundle install | while read line; do
-    echo "     $line"
-done
-
-echo
-cat ./bootstrap.txt
