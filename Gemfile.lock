@@ -31,7 +31,7 @@ GEM
     gherkin (2.9.1)
       json (>= 1.4.6)
     i18n (0.6.0)
-    json (1.6.5)
+    json (1.6.6)
     metaclass (0.0.1)
     mocha (0.10.0)
       metaclass (~> 0.0.1)
@@ -71,6 +71,7 @@ DEPENDENCIES
   activesupport (~> 3.1)
   cucumber
   foreman
+  json (>= 1.6.6)
   kosmonaut (>= 0.4.0)!
   mocha
   rack-flash
