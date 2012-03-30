@@ -536,7 +536,6 @@ body.room [role='contentinfo'] {
 #room {
 }
 #room .in {
-   box-sizing: border-box;
    border: 15px solid #3d5749;
    border-bottom: 0;
    border-top: 0;
@@ -545,7 +544,7 @@ body.room [role='contentinfo'] {
    top: 0;
    min-height: 100%;
    bottom: 0;
-   width: 865px;
+   width: 835px;
    z-index: 10;
 }
 #chatlog {
