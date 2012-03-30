@@ -78,7 +78,7 @@ $(document).ready(function() {
     $newMessage.submit(newMessageSubmit);
     promptForName();
 
-    wr.authenticate(chanName, screenName);
+    wr.authenticate({ channel: chanName, uid: screenName });
     
     var roomChan = wr.subscribe(chanName, { name: screenName });
     roomChan.bind(":memberJoined", roomChanMemberJoined);
