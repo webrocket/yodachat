@@ -23,13 +23,8 @@ Run your Redis server instance:
     $ redis-server /etc/redis.conf
    
 Now copy `.env.sample` file to `.env` and replace its contents with your
-configuration. Place vhost token in appropriate place. Load it when you're
-done:
-
-    $ source .env
-
-Notice! You have to load env file every time you start working with the 
-project, in every terminal tab you have open. 
+configuration. Place vhost token in appropriate place. This file will
+be loaded automatically when running application and tests.
 
 Install bundler gem if you don't have it yet and install dependencies:
 
@@ -60,15 +55,15 @@ Now go to the website, and enjoy!
 
 To run acceptance tests run:
   
-    $ rake run
+    $ foreman run rake run
    
 RSpec unit tests are available under:
 
-    $ rake test
+    $ foreman run rake test
 
 Invoking rake without arguments will cause run of all the tests together:
 
-    $ rake
+    $ foreman run rake
 
 ## Authors
 
