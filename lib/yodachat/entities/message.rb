@@ -33,7 +33,7 @@ module YodaChat
         :room      => room_name,
         :message   => message,
         :author    => author,
-        :posted_at => posted_at 
+        :posted_at => posted_at.iso8601
       }
     end
 

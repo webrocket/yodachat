@@ -16,7 +16,7 @@ module YodaChat
           :room_name => msg.room_name, 
           :message   => msg.message,
           :author    => msg.author,
-          :posted_at => msg.posted_at
+          :posted_at => msg.posted_at.to_i
         }
         $redis.zadd("room.#{room_name}.messages", msg.posted_at.to_f * 1e6, attrs.to_json)
       end
@@ -31,8 +31,8 @@ module YodaChat
     def self.recent_by_room_name(room_name, max = 20)
       entries = $redis.zrange("room.#{room_name}.messages", 0, max - 1).map do |entry|
         attrs = JSON.parse(entry)
-        msg = Message.new(*attrs.values_at('room_name', 'message', 'author', 'posted_at'))
-        msg.posted_at = Time.at(attrs["posted_at"].to_f).iso8601
+        msg = Message.new(*attrs.values_at('room_name', 'message', 'author'))
+        msg.posted_at = Time.at(attrs["posted_at"].to_i)
         msg
       end
 

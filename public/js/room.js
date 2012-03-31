@@ -48,6 +48,7 @@ function promptForName() {
 //
 function appendMessage(data) {
     var tpl = Handlebars.compile($messageTpl);
+    console.log(data.posted_at);
     d = new Date(data.posted_at);
     data.posted_at = d.getHours() + ":" + d.getMinutes();
     $chatlog.append(tpl(data));
@@ -101,12 +102,10 @@ function roomChanMemberLeft(data) {
     appendSysMessage(data.name + " left the room");
 }
 
-$(document).ready(function() {
+// Set up all the WebRocket and chat room stuff.
+function setupRoom() {
     $newMessageText.keypress(newMessageTextClick);
     $newMessage.submit(newMessageSubmit);
-
-    // Ask user for his name.
-    promptForName();
 
     // Authenticate for presence channel access. YES, I do know it's not
     // secure to give such params in here :). This is just dummy app to
@@ -119,4 +118,17 @@ $(document).ready(function() {
     roomChan.bind(":memberJoined", roomChanMemberJoined);
     roomChan.bind(":memberLeft", roomChanMemberLeft);
     roomChan.bind("messageSent", appendMessage);
+}
+
+// Set up all the things!
+function setup() {
+    if (screenName == "") {
+        promptForName();
+    } else {
+        setupRoom();
+    }
+}
+
+$(document).ready(function() {
+    setup();
 });

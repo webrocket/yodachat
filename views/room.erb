@@ -40,8 +40,8 @@
 <script src="/js/libs/webrocket.js"></script>
 <script defer="defer">
   var accessToken = "<%= @single_access_token %>"
-      , chanName = "presence-room-<%= @room.name %>"
-      , roomId = "<%= @room.name %>"
-      , wr = new WebRocket("<%= $WEBSOCKET_URL %>", { debug: true });
+  , chanName = "presence-room-<%= @room.name %>"
+  , roomId = "<%= @room.name %>"
+  , wr = new WebRocket("<%= $WEBSOCKET_URL %>", { debug: true });
 </script>
 <script defer="defer" src="/js/room.js"></script>

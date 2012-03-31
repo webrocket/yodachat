@@ -235,7 +235,11 @@ WebRocket.Connection.prototype = {
             console.log("WebRocket: Not connected");
             return false;
         }
-        return this.socket.send(JSON.stringify(data));
+        var payload = JSON.stringify(data);
+        if (this.debug) {
+            console.log("D: WebRocket: Sending message " + payload);
+        }
+        return this.socket.send(payload);
     },
     
     // Connects to the server.
