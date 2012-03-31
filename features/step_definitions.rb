@@ -3,6 +3,7 @@ require File.expand_path('../../spec/spec_helper', __FILE__)
 
 When /^I create a room called "(.*)"$/ do |room_name|
   @room_name = room_name
+  $kosmonaut.expects(:open_channel).with("presence-room-#{@room_name}")
   @create_new_room = CreateNewRoomService.new(@room_name)
   @result, @ok = @create_new_room.as_hash
 end

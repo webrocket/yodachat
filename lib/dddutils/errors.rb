@@ -4,4 +4,9 @@ class Errors < Array
   def as_hash
     { :errors => self }
   end
+
+  # Public: String representation of the errors.
+  def to_s
+    self.join(', ')
+  end
 end

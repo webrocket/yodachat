@@ -37,6 +37,13 @@
   <li class="sys_msg">{{message}}</li>
 </script>
 
+<script type="text/html" id="reconnect_tpl">
+  <li class="sys_msg yellow">
+    Something went wrong and you're offline,
+    <a href="#" class="reconnect">reconnect now</a>?
+  </li>
+</script>
+
 <script src="/js/libs/webrocket.js"></script>
 <script defer="defer">
   var accessToken = "<%= @single_access_token %>"

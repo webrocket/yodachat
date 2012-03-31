@@ -18,7 +18,7 @@ helpers do
   end
 
   def redirect_with_errors(where, errors)
-    flash[:error] = @errors.to_s
+    flash[:error] = errors.to_s
     redirect "/"
   end
 end
@@ -41,7 +41,6 @@ post '/new' do
   @room, ok = *create_room.call
   
   if ok
-    $kosmonaut.open_channel("presence-room-#{@room.name}")
     flash[:notice] = "The room created has been!"
     redirect "/room/#{room_name}"
   else

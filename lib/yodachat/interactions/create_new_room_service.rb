@@ -30,7 +30,7 @@ module YodaChat
     # Returns new room object or list with encountered errors.
     def call
       if valid?
-        [create_new_room, true]
+        create_new_room
       else
         [errors, false]
       end
@@ -38,7 +38,11 @@ module YodaChat
 
     # Internal: Creates new chat room.
     def create_new_room
-      RoomsRepository.find_by_name_or_create(@room_name)
+      $kosmonaut.open_channel("presence-room-#{@room_name}")
+      [RoomsRepository.find_by_name_or_create(@room_name), true]
+    rescue Errno::ECONNREFUSED
+      errors << "New room created can't be, again later please try"
+      [errors, false]
     end
   end
 end

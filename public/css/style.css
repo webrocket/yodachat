@@ -289,7 +289,7 @@ h1 img {
   bottom: 0;
 }
 div#error {
-   margin: 1em 3em;
+   margin: 1em 0;
    position: relative;
 }
 div#error p {
@@ -366,6 +366,9 @@ div#error p {
   box-shadow: 0 0 10px rgba(120, 120, 120, .3) inset;
   color: #666;
   border-style: none;
+}
+#chatlog .sys_msg.yellow {
+   background-color: #FFA;
 }
 .fn {
   width: 10%;
@@ -707,7 +710,7 @@ body.room [role='contentinfo'] {
   }
   div#error {
     font-size: .7em;
-    margin: 0.6em .6em 1em .6em;
+    margin: 0.6em 0 .5em 0;
   }
   #new_chat_button {
     padding: 0.7em 0;

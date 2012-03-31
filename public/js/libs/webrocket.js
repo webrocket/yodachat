@@ -107,9 +107,21 @@ WebRocket.prototype = {
     //
     close: function(data) {
         return this.connection.close(data);
+    },
+
+    // Connects to the server.
+    connect: function() {
+        return this.connection.connect();
+    },
+    
+    // Force reconnects to the server.
+    reconnect: function() {
+        this.connection.retries = 1;
+        return this.connection.reconnect();
     }
 };
 
+// Possible connection states.
 WebRocket.ConnectionState = {
     NOT_CONNECTED:  1,
     CONNECTING:     2,
@@ -120,20 +132,26 @@ WebRocket.ConnectionState = {
     BROKEN:         32
 };
 
+// WebRocket connections manages connection state and configuration.
+//
+// url     - The String URL to websockets server.
+// options - The Object with connection options.
+//
 WebRocket.Connection = function WebRocketConnection(url, options) {
-    options       = !!options ? options : {};
-    this.url      = url;
-    this.debug    = !!options.debug;
-    this.authurl  = !!options.authURL ? options.authURL : '/webrocket/auth.json';
-    this.state    = WebRocket.ConnectionState.NOT_CONNECTED;
-    this.socket   = undefined;
-    this.channels = new WebRocket.Channels(this);
-    this.events   = new WebRocket.Events;
-    this.auths    = [];
-
-    this.connect();
+    options         = !!options ? options : {};
+    this.url        = url;
+    this.debug      = !!options.debug;
+    this.maxRetries = !!options.maxRetries ? options.maxRetries : 3;
+    this.authurl    = !!options.authURL ? options.authURL : '/webrocket/auth.json';
+    this.state      = WebRocket.ConnectionState.NOT_CONNECTED;
+    this.socket     = undefined;
+    this.channels   = new WebRocket.Channels(this);
+    this.events     = new WebRocket.Events;
+    this.auths      = [];
+    this.retries    = 1
 };
 
+// WebRocket Connection methods.
 WebRocket.Connection.prototype = {
     constructor: WebRocket.Connection,
 
@@ -148,6 +166,7 @@ WebRocket.Connection.prototype = {
     // WebSocket onopen callback.
     __onopen: function(event) {
         this.state = WebRocket.ConnectionState.CONNECTING;
+        this.retries = 1;
 
         if (this.debug) {
             console.log("D: WebRocket: Connecting");
@@ -157,8 +176,10 @@ WebRocket.Connection.prototype = {
     // WebSocket onclose callback.
     __onclose: function(event) {
         console.log("WebRocket: Unexpectedly closed connection");
-        this.state  = WebRocket.ConnectionState.BROKEN;
-        this.connect();
+        if (!this.isBroken()) {
+            this.state  = WebRocket.ConnectionState.NOT_CONNECTED;
+            this.reconnect();
+        }
     },
 
     // WebSocket onmessage callback.
@@ -183,7 +204,7 @@ WebRocket.Connection.prototype = {
         // We're not fucking around. Reconnecting!
         console.log("WebRocket: Connection error", event);
         this.state  = WebRocket.ConnectionState.BROKEN;
-        this.connect();
+        this.reconnect();
     },
 
     // Performs authentication request.
@@ -226,6 +247,11 @@ WebRocket.Connection.prototype = {
         return this.state == WebRocket.ConnectionState.CONNECTED;
     },
 
+    // Returns whether socket is broken or not.
+    isBroken: function() {
+        return this.state == WebRocket.ConnectionState.BROKEN;
+    },
+    
     // Sends given payload to the server.
     //
     // data - The Object payload to be sent.
@@ -245,13 +271,25 @@ WebRocket.Connection.prototype = {
     // Connects to the server.
     connect: function() {
         var self = this;
-        this.socket = new WebSocket(this.url);
+        try {
+            this.socket = new WebSocket(this.url);
+        } catch(e) {}
         this.socket.onopen = function(e) { self.__onopen(e) };
         this.socket.onclose = function(e) { self.__onclose(e) };
         this.socket.onmessage = function(e) { self.__onmessage(e) };
         this.socket.onerror = function(e) { self.__onerror(e) };
     },
 
+    // Reconnects to the server.
+    reconnect: function() {
+        if (this.retries < this.maxRetries) {
+            this.retries += 1;
+            this.connect();
+        } else {
+            this.events.trigger('disconnected');
+        }
+    },
+    
     // Performs authentication.
     //
     // options - The Object extra auth parameters.

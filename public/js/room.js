@@ -1,5 +1,6 @@
 var $newMessage = $("#new_message")
   , $newMessageText = $("#new_message_text")
+  , $reconnectTpl = $("#reconnect_tpl").html()
   , $messageTpl = $("#message_tpl").html()
   , $sysMessageTpl = $("#sys_message_tpl").html()
   , $chatlog = $("#chatlog")
@@ -102,22 +103,41 @@ function roomChanMemberLeft(data) {
     appendSysMessage(data.name + " left the room");
 }
 
+// Callback triggered when websockets connection has been interrupted.
+function onWebRocketDisconnect() {
+    $chatlog.append($reconnectTpl);
+}
+
+// Reconnects with websockets server.
+function reconnectClick() {
+    $chatlog.html('');
+    historyLoaded = false;
+    wr.reconnect();
+}
+
 // Set up all the WebRocket and chat room stuff.
 function setupRoom() {
     $newMessageText.keypress(newMessageTextClick);
     $newMessage.submit(newMessageSubmit);
-
+    $('.reconnect').live('click', reconnectClick);
+    
     // Authenticate for presence channel access. YES, I do know it's not
     // secure to give such params in here :). This is just dummy app to
     // present features of WebRocket and Kosmonaut so I simply don't care
     // about security :P.
     wr.authenticate({ channel: chanName, uid: screenName });
 
+    // Handle disconnection.
+    wr.bind('disconnected', onWebRocketDisconnect)
+    
     // Subscribe to the channel and bind callbacks.
     var roomChan = wr.subscribe(chanName, { name: screenName });
     roomChan.bind(":memberJoined", roomChanMemberJoined);
     roomChan.bind(":memberLeft", roomChanMemberLeft);
     roomChan.bind("messageSent", appendMessage);
+
+    // Connect with websockets.
+    wr.connect();
 }
 
 // Set up all the things!
